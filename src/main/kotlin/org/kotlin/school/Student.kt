@@ -3,15 +3,16 @@ package org.kotlin.school
 import java.util.*
 
 fun main() {
-    Student("Min",60,80).printScore()
-    Student("wang",50)
+    Student(null,60,80).checkName()
+
+/*    Student("wang",50)
     Student()
 
     BigStudent()
-    BigStudent("big",20,15)
+    BigStudent("big",20,15)*/
 }
 
-class Student(var name : String, var mathScore: Int,var artScore: Int) {
+class Student(var name : String?, var mathScore: Int,var artScore: Int) {
 
     constructor() : this("",0,0) {
         val scanner = Scanner(System.`in`)
@@ -27,6 +28,17 @@ class Student(var name : String, var mathScore: Int,var artScore: Int) {
     constructor(name: String, mathScore: Int) : this(name, mathScore, 0) {
         println("兩參建構子")
         printScore()
+    }
+
+    fun checkName(){
+        println("--- ${name?.get(2)}")
+        try {
+            println(name!!.length)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            println("catch null")
+        }
+        println("over")
     }
 
     fun printScore(){
