@@ -22,3 +22,19 @@ tasks.test {
 kotlin {
     jvmToolchain(21)
 }
+
+tasks.named<Jar>("jar") {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE // 處理重複
+}
+
+tasks.withType<JavaCompile> {
+    options.encoding = "UTF-8"
+}
+
+tasks.withType<JavaExec> {
+    jvmArgs = listOf(
+        "-Dfile.encoding=UTF-8",
+        "-Dsun.stdout.encoding=UTF-8",
+        "-Dsun.stderr.encoding=UTF-8"
+    )
+}

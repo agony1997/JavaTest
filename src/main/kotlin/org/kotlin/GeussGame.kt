@@ -7,7 +7,7 @@ fun main() {
     val target = Random.nextInt(10) + 1
     println("target is $target")
 
-    var enter = 0
+    var enter :Int
     val times = 4
 
     for (i in 1..times) {

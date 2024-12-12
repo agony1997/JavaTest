@@ -3,7 +3,10 @@ package org.kotlin.school
 import java.util.*
 
 fun main() {
-    Student(null, 60, 80).printScore()
+    val student = Student("meme", 60, 80)
+    println(student.getTop())
+    println(student.checkPass())
+    student.printScore()
 }
 
 private fun test() {
@@ -14,6 +17,14 @@ private fun test() {
 }
 
 class Student(var name: String?, var mathScore: Int, var artScore: Int) {
+
+    companion object{
+        @JvmStatic
+        var pass = 80
+        fun test(){
+            println("我在companion")
+        }
+    }
 
     constructor() : this("", 0, 0) {
         val scanner = Scanner(System.`in`)
@@ -54,10 +65,17 @@ class Student(var name: String?, var mathScore: Int, var artScore: Int) {
         else -> 'F'
     }
 
+    fun checkPass() :Boolean =
+        if (getAverageScore()>pass)
+            true
+        else
+            false
+
 
     fun printScore() {
         println("Name = $name, MathScore = $mathScore, ArtScore = $artScore")
         println("TopScore = ${getTop()}, AverageScore = ${getAverageScore()}, Grand = ${getGrand()}")
+        println("Pass = ${if (checkPass()) "YES" else "NO"}")
 //        println(
 //            name + "\t" + mathScore + "\t" + artScore + "\t" + getAverageScore() + "\t" + if (getAverageScore() > 60) "pass" else "fail"
 //        )

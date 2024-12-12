@@ -21,8 +21,6 @@ public class Student {
         this.english = scanner.nextInt();
         System.out.println("Enter art score");
         this.art = scanner.nextInt();
-
-        scanner.close();
     }
 
     public Student(int id, String name, int english, int art) {
