@@ -19,7 +19,7 @@ fun main() {
 }
 
 
-class Person(private var height:Float, var weight:Float) {
+class Person(var height:Float, var weight:Float) {
 
     init {
         println("建構子完成後執行init區...")
