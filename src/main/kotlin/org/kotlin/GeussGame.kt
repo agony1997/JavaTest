@@ -3,8 +3,30 @@ package org.kotlin
 import kotlin.random.Random
 
 fun main() {
-//    val scanner = Scanner(System.`in`)
 
+    val target = Random.nextInt(10) + 1
+    println("target is $target")
+
+    var enter = 0
+    val times = 4
+
+    for (i in 1..times) {
+        println("Enter nuber")
+        enter = readlnOrNull()?.toIntOrNull() ?: 0
+
+        if (enter > target)
+            println("Lower, you have ${times - i} times")
+        else if (enter < target)
+            println("Upper, you have ${times - i} times")
+        else if (enter == -1)
+            break
+        else
+            println("Bingo")
+    }
+    println("Game Over")
+}
+
+private fun guessGame() {
     val target = Random.nextInt(10) + 1
     println("target = $target")
 
@@ -13,7 +35,7 @@ fun main() {
     while (readNumber != target) {
 
         println("Enter your number")
-        readNumber = readLine()?.toIntOrNull()?:0
+        readNumber = readLine()?.toIntOrNull() ?: 0
 
         if (readNumber > target) {
             println("Lower")
