@@ -3,18 +3,12 @@ package org.kotlin.school
 import java.util.*
 
 fun main() {
-
-
-    println(Student(null, 60, 80).getTop())
-
+    Student(null, 60, 80).printScore()
 }
 
 private fun test() {
-
-
     Student("wang", 50)
     Student()
-
     BigStudent()
     BigStudent("big", 20, 15)
 }
@@ -37,21 +31,37 @@ class Student(var name: String?, var mathScore: Int, var artScore: Int) {
         printScore()
     }
 
-    fun getTop() : Int{
-        var top : Int
-        top = if (mathScore > artScore) {
-            mathScore
-        } else if (artScore > mathScore) {
-            artScore
-        } else {
-            println("have multiple top score")
-            mathScore
-        }
-        return top
+    fun getTop() = if (mathScore > artScore) {
+        mathScore
+    } else if (artScore > mathScore) {
+        artScore
+    } else {
+        println("have multiple top score")
+        mathScore
     }
+
 
 //    An expression is any valid unit of code that resolves to a value.
 //    > 任何會回傳值的程式碼片段都算是表達式
+
+    fun getAverageScore() = (mathScore + artScore) / 2
+
+    fun getGrand() = when (getAverageScore()) {
+        100, 99 -> 'S'
+        in 90..98 -> 'A'
+        in 80..89 -> 'B'
+        in 70..79 -> 'C'
+        else -> 'F'
+    }
+
+
+    fun printScore() {
+        println("Name = $name, MathScore = $mathScore, ArtScore = $artScore")
+        println("TopScore = ${getTop()}, AverageScore = ${getAverageScore()}, Grand = ${getGrand()}")
+//        println(
+//            name + "\t" + mathScore + "\t" + artScore + "\t" + getAverageScore() + "\t" + if (getAverageScore() > 60) "pass" else "fail"
+//        )
+    }
 
     fun checkName() {
         println("--- ${name?.get(2)}")
@@ -63,11 +73,10 @@ class Student(var name: String?, var mathScore: Int, var artScore: Int) {
         }
         println("over")
     }
-
-    fun printScore() {
-        println("Name = $name, MathScore = $mathScore, ArtScore = $artScore")
-    }
 }
+
+
+// --------------------------------------------------
 
 class BigStudent {
     var name: String
