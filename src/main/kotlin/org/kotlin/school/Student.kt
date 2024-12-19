@@ -1,12 +1,21 @@
 package org.kotlin.school
 
+import org.kotlin.school.Student.Companion
 import java.util.*
 
 fun main() {
-    val student = Student("meme", 60, 80)
-    println(student.getTop())
-    println(student.checkPass())
-    student.printScore()
+//    val student = Student("meme", 60, 80)
+//    println(student.getTop())
+//    println(student.checkPass())
+//    student.printScore()
+
+    val graduateStudent = GraduateStudent("meme",85,90,90)
+    println(graduateStudent.getTop())
+    println(graduateStudent.getAverageScore())
+    println(graduateStudent.checkPass())
+    graduateStudent.printScore()
+    println(GraduateStudent.pass)
+//    println(graduateStudent.pass)
 }
 
 private fun test() {
@@ -16,12 +25,33 @@ private fun test() {
     BigStudent("big", 20, 15)
 }
 
-class Student(var name: String?, var mathScore: Int, var artScore: Int) {
+class GraduateStudent(name: String?, mathScore: Int, artScore: Int, var thesis: Int) :
+    Student(name, mathScore, artScore) {
 
-    companion object{
+        companion object {
+            var pass = 98;
+        }
+
+    override fun getAverageScore(): Int {
+        return (mathScore + artScore + thesis) / 3;
+    }
+    // 沒覆寫方法還是會回去用父類的companion pass
+    // 即使子類有寫 companion pass
+    override fun checkPass(): Boolean =
+        if (getAverageScore() > pass)
+            true
+        else
+            false
+
+}
+
+
+open class Student(var name: String?, var mathScore: Int, var artScore: Int) {
+
+    companion object {
         @JvmStatic
         var pass = 80
-        fun test(){
+        fun test() {
             println("我在companion")
         }
     }
@@ -42,7 +72,7 @@ class Student(var name: String?, var mathScore: Int, var artScore: Int) {
         printScore()
     }
 
-    fun getTop() = if (mathScore > artScore) {
+    open fun getTop() = if (mathScore > artScore) {
         mathScore
     } else if (artScore > mathScore) {
         artScore
@@ -55,7 +85,7 @@ class Student(var name: String?, var mathScore: Int, var artScore: Int) {
 //    An expression is any valid unit of code that resolves to a value.
 //    > 任何會回傳值的程式碼片段都算是表達式
 
-    fun getAverageScore() = (mathScore + artScore) / 2
+    open fun getAverageScore() = (mathScore + artScore) / 2
 
     fun getGrand() = when (getAverageScore()) {
         100, 99 -> 'S'
@@ -65,8 +95,8 @@ class Student(var name: String?, var mathScore: Int, var artScore: Int) {
         else -> 'F'
     }
 
-    fun checkPass() :Boolean =
-        if (getAverageScore()>pass)
+    open fun checkPass(): Boolean =
+        if (getAverageScore() > pass)
             true
         else
             false
